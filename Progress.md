@@ -82,7 +82,7 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - ✅ Custom DatePicker and TimePicker components implemented
 - ✅ Build passes without errors
 - ✅ Linting clean
-- ✅ Fixed infinite re-render bug in edit task dialog
+- ✅ Fixed infinite re-render bug in edit task dialog and TimePicker component
 
 ## How to Run
 1. Ensure Node.js and npm are installed
@@ -99,5 +99,6 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - Code follows TypeScript best practices with proper typing
 - Tasks can now be scheduled with date and time information
 - Real-time sync removed for server-side simplicity; can be re-added if needed
+- Fixed React infinite re-render issues in edit dialog and TimePicker by controlling dialog state and optimizing TimePicker onChange handlers
 
 This project demonstrates a complete, production-ready task management application with modern web technologies and server-side database access.
