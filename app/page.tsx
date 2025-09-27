@@ -8,7 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
 import { useState, useEffect } from "react";
-import { Plus } from "lucide-react";
+import { Plus, Calendar } from "lucide-react";
+import Link from "next/link";
 
 type Task = {
   id: string;
@@ -142,7 +143,14 @@ export default function Home() {
     <div className="container mx-auto p-4">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Task Manager</h1>
-        <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+        <div className="flex items-center space-x-2">
+          <Button asChild variant="outline">
+            <Link href="/timeline">
+              <Calendar className="h-4 w-4 mr-2" />
+              Timeline
+            </Link>
+          </Button>
+          <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
             <Button size="icon" variant="outline">
               <Plus className="h-4 w-4" />
@@ -179,8 +187,9 @@ export default function Home() {
                />
               <Button onClick={addTask}>Add Task</Button>
             </div>
-          </DialogContent>
+           </DialogContent>
         </Dialog>
+        </div>
       </div>
       <div className="space-y-2">
         {tasks.map((task) => (

@@ -65,6 +65,13 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - TimePicker uses hour/minute dropdown selects for precise time input
 - Tasks now display scheduling information in the UI
 
+### 7. Timeline View
+- Created a dedicated timeline page (`/timeline`) for visualizing scheduled tasks
+- Implemented a vertical timeline layout showing tasks positioned by their start and end times
+- Added date picker to filter tasks by selected date
+- Tasks are displayed as cards on the timeline only if they have date, start time, and end time set
+- Fixed date comparison bug: properly parse and compare dates to ensure tasks appear on the correct dates
+
 ### 7. Code Quality and Best Practices
 - TypeScript for type safety
 - ESLint for code linting (passes without errors)
@@ -80,6 +87,8 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - ✅ UI components functional
 - ✅ Task scheduling features (date, start/end times) added
 - ✅ Custom DatePicker and TimePicker components implemented
+- ✅ Timeline view implemented with date filtering
+- ✅ Fixed timeline date comparison bug: tasks now display correctly on timeline
 - ✅ Build passes without errors
 - ✅ Linting clean
 - ✅ Fixed infinite re-render bug in edit task dialog and TimePicker component
@@ -98,7 +107,9 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - UI is fully responsive and accessible with custom DatePicker and TimePicker components
 - Code follows TypeScript best practices with proper typing
 - Tasks can now be scheduled with date and time information
+- Timeline view provides visual scheduling with proper date parsing and comparison
 - Real-time sync removed for server-side simplicity; can be re-added if needed
 - Fixed React infinite re-render issues in edit dialog and TimePicker by controlling dialog state and optimizing TimePicker onChange handlers
+- Resolved timeline display bug by correctly handling date string comparisons
 
 This project demonstrates a complete, production-ready task management application with modern web technologies and server-side database access.
