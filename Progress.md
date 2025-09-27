@@ -6,6 +6,7 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 ## Key Technologies Used
 - **Frontend Framework**: Next.js 15 with App Router
 - **UI Library**: ShadcnUi (built on Radix UI and Tailwind CSS)
+- **Date/Time Components**: react-day-picker for calendar, custom selects for time
 - **Database**: InstantDB (with @instantdb/admin for server-side access)
 - **Styling**: Tailwind CSS
 - **Language**: TypeScript
@@ -34,7 +35,7 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 
 ### 3. UI Components and Layout
 - **Main Page**: Task manager interface in `app/page.tsx`
-- **Add Task**: Form with title, description, date, start time, and end time inputs, using Shadcn Input and Button
+- **Add Task**: Form with title, description, custom DatePicker, and TimePicker components, using Shadcn Button
 - **Task List**: Displays tasks in cards with Shadcn Card component, showing date and time information
 - **Task Actions**:
   - Checkbox for marking tasks as done/undone
@@ -59,7 +60,9 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - Added date, start time, and end time fields to tasks
 - Updated schema to include optional date and time attributes
 - Modified API routes to handle new fields in create and update operations
-- Enhanced frontend forms to include date picker and time inputs
+- Implemented custom DatePicker and TimePicker components using ShadcnUi and react-day-picker
+- DatePicker provides a calendar popover for intuitive date selection
+- TimePicker uses hour/minute dropdown selects for precise time input
 - Tasks now display scheduling information in the UI
 
 ### 7. Code Quality and Best Practices
@@ -76,8 +79,10 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 - ✅ CRUD operations implemented via APIs
 - ✅ UI components functional
 - ✅ Task scheduling features (date, start/end times) added
+- ✅ Custom DatePicker and TimePicker components implemented
 - ✅ Build passes without errors
 - ✅ Linting clean
+- ✅ Fixed infinite re-render bug in edit task dialog
 
 ## How to Run
 1. Ensure Node.js and npm are installed
@@ -90,7 +95,7 @@ This project is a CRUD (Create, Read, Update, Delete) task manager application w
 ## Notes
 - Schema is managed via Instant CLI for production stability
 - Operations are handled server-side via Next.js API routes
-- UI is fully responsive and accessible with native date/time pickers
+- UI is fully responsive and accessible with custom DatePicker and TimePicker components
 - Code follows TypeScript best practices with proper typing
 - Tasks can now be scheduled with date and time information
 - Real-time sync removed for server-side simplicity; can be re-added if needed
