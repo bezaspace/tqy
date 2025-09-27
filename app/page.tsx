@@ -13,6 +13,9 @@ type Task = {
   description?: string;
   done: boolean;
   createdAt: Date;
+  date: Date;
+  startTime?: string;
+  endTime?: string;
 };
 
 export default function Home() {
@@ -21,9 +24,15 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [newTitle, setNewTitle] = useState("");
   const [newDesc, setNewDesc] = useState("");
+  const [newDate, setNewDate] = useState("");
+  const [newStartTime, setNewStartTime] = useState("");
+  const [newEndTime, setNewEndTime] = useState("");
   const [editTask, setEditTask] = useState<Task | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDesc, setEditDesc] = useState("");
+  const [editDate, setEditDate] = useState("");
+  const [editStartTime, setEditStartTime] = useState("");
+  const [editEndTime, setEditEndTime] = useState("");
 
   const fetchTasks = async () => {
     try {
@@ -46,15 +55,18 @@ export default function Home() {
   if (error) return <div>Error: {error}</div>;
 
   const addTask = async () => {
-    if (!newTitle.trim()) return;
+    if (!newTitle.trim() || !newDate) return;
     try {
       await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTitle, description: newDesc }),
+        body: JSON.stringify({ title: newTitle, description: newDesc, date: newDate, startTime: newStartTime, endTime: newEndTime }),
       });
       setNewTitle("");
       setNewDesc("");
+      setNewDate("");
+      setNewStartTime("");
+      setNewEndTime("");
       fetchTasks();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to add task');
@@ -87,6 +99,9 @@ export default function Home() {
     setEditTask(task);
     setEditTitle(task.title);
     setEditDesc(task.description || "");
+    setEditDate(task.date ? task.date.toISOString().split('T')[0] : "");
+    setEditStartTime(task.startTime || "");
+    setEditEndTime(task.endTime || "");
   };
 
   const saveEdit = async () => {
@@ -95,7 +110,7 @@ export default function Home() {
       await fetch(`/api/tasks/${editTask.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: editTitle, description: editDesc, done: editTask.done }),
+        body: JSON.stringify({ title: editTitle, description: editDesc, date: editDate, startTime: editStartTime, endTime: editEndTime, done: editTask.done }),
       });
       setEditTask(null);
       fetchTasks();
@@ -123,6 +138,26 @@ export default function Home() {
             onChange={(e) => setNewDesc(e.target.value)}
             className="mt-2"
           />
+          <Input
+            type="date"
+            value={newDate}
+            onChange={(e) => setNewDate(e.target.value)}
+            className="mt-2"
+          />
+          <Input
+            type="time"
+            placeholder="Start Time"
+            value={newStartTime}
+            onChange={(e) => setNewStartTime(e.target.value)}
+            className="mt-2"
+          />
+          <Input
+            type="time"
+            placeholder="End Time"
+            value={newEndTime}
+            onChange={(e) => setNewEndTime(e.target.value)}
+            className="mt-2"
+          />
           <Button onClick={addTask} className="mt-2">Add Task</Button>
         </CardContent>
       </Card>
@@ -137,7 +172,12 @@ export default function Home() {
                 />
                 <div>
                   <h3 className={task.done ? "line-through" : ""}>{task.title}</h3>
-                  <p className="text-sm text-gray-600">{task.description}</p>
+                  <p className="text-sm text-muted-foreground">{task.description}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {task.date ? new Date(task.date).toLocaleDateString() : ""}
+                    {task.startTime && ` ${task.startTime}`}
+                    {task.endTime && ` - ${task.endTime}`}
+                  </p>
                 </div>
               </div>
               <div className="space-x-2">
@@ -158,6 +198,26 @@ export default function Home() {
                       placeholder="Description"
                       value={editDesc}
                       onChange={(e) => setEditDesc(e.target.value)}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="date"
+                      value={editDate}
+                      onChange={(e) => setEditDate(e.target.value)}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="time"
+                      placeholder="Start Time"
+                      value={editStartTime}
+                      onChange={(e) => setEditStartTime(e.target.value)}
+                      className="mt-2"
+                    />
+                    <Input
+                      type="time"
+                      placeholder="End Time"
+                      value={editEndTime}
+                      onChange={(e) => setEditEndTime(e.target.value)}
                       className="mt-2"
                     />
                     <Button onClick={saveEdit}>Save</Button>

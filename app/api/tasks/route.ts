@@ -13,12 +13,15 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { title, description } = await request.json();
+  const { title, description, date, startTime, endTime } = await request.json();
   const taskId = id();
   await db.transact(
     db.tx.tasks[taskId].update({
       title,
       description: description || "",
+      date: new Date(date),
+      startTime: startTime || null,
+      endTime: endTime || null,
       done: false,
       createdAt: new Date(),
     })

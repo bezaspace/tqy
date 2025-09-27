@@ -13,8 +13,11 @@ const _schema = i.schema({
     }),
     tasks: i.entity({
       createdAt: i.date(),
+      date: i.date().optional(),
       description: i.string().optional(),
       done: i.boolean(),
+      endTime: i.string().optional(),
+      startTime: i.string().optional(),
       title: i.string(),
     }),
   },
